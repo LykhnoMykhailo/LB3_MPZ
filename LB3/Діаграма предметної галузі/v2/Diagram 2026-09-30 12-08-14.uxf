@@ -1,0 +1,31 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>390</x><y>340</y><w>100</w><h>110</h></coordinates><panel_attributes>Student
+--
+Id
+FirstName
+LastName
+Age
+GroupId</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>390</x><y>530</y><w>100</w><h>80</h></coordinates><panel_attributes>Address
+--
+Id
+StudentAddress
+StudentId</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>400</y><w>100</w><h>80</h></coordinates><panel_attributes>Group
+--
+Id
+GroupName</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>480</x><y>410</y><w>170</w><h>50</h></coordinates><panel_attributes>lt=-
+m1=*
+m2=1
+Навчаються в  &gt;</panel_attributes><additional_attributes>10;20;150;20</additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>440</y><w>120</w><h>110</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1
+Проживає по  &gt;</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>830</x><y>400</y><w>100</w><h>80</h></coordinates><panel_attributes>Subject
+--
+Id
+SubjectName
+Hours</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>730</x><y>510</y><w>100</w><h>80</h></coordinates><panel_attributes>GroupSubject
+--
+Id
+GroupId
+SubjectId</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>720</x><y>390</y><w>130</w><h>50</h></coordinates><panel_attributes>lt=-
+m1=*
+m2=*
+Вивчає &gt;</panel_attributes><additional_attributes>10;20;110;20</additional_attributes></element><element><id>Relation</id><coordinates><x>770</x><y>400</y><w>30</w><h>130</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element></diagram>

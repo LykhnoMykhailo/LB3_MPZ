@@ -1,0 +1,20 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>90</x><y>260</y><w>100</w><h>110</h></coordinates><panel_attributes>Student
+--
+Id
+FirstName
+LastName
+Age
+GroupId</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>90</x><y>510</y><w>100</w><h>80</h></coordinates><panel_attributes>Address
+--
+Id
+StudentAddress
+StudentId</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>320</y><w>100</w><h>80</h></coordinates><panel_attributes>Group
+--
+Id
+GroupName</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>180</x><y>330</y><w>190</w><h>50</h></coordinates><panel_attributes>lt=-
+m1=*
+m2=1
+Навчаються в  &gt;</panel_attributes><additional_attributes>10;20;170;20</additional_attributes></element><element><id>Relation</id><coordinates><x>130</x><y>360</y><w>120</w><h>170</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1
+Проживає по  &gt;</panel_attributes><additional_attributes>10;10;10;150</additional_attributes></element></diagram>
