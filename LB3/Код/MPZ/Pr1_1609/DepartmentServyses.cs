@@ -15,7 +15,7 @@ namespace Pr1_1609
         {
             this.db = db;
         }
-        // ===  1: Управління даними щодо студента (Create) ===
+
         public void RegisterStudent(string firstName, string lastName, int age, int groupId, string addressText)
         {
             Student newStudent = new Student(firstName, lastName, age, groupId);
@@ -26,6 +26,7 @@ namespace Pr1_1609
 
             Console.WriteLine($"[Успішно] Студента {firstName} {lastName} додано з ID: {newStudent.Id}");
         }
+
         public void GetAllInformationAboutStudients()
         {
             foreach (Student student in db.DBStudent.Items)
@@ -60,7 +61,38 @@ namespace Pr1_1609
                 }
             }
         }
-        // ===  2: Управління даними щодо адреси студента (CRUD) ===
+
+        public void UpdateStudent(int id, string firstName, string lastName, int age, int groupId)
+        {
+            var oldStudent = db.DBStudent.GetItem(id);
+            if (oldStudent != null)
+            {
+                Student newStudent = new Student(firstName, lastName, age, groupId);
+                db.DBStudent.UpdateItem(oldStudent, newStudent);
+                Console.WriteLine($"[Успішно] Дані студента з ID {id} оновлено.");
+            }
+            else
+            {
+                Console.WriteLine("[Помилка] Студента не знайдено.");
+            }
+        }
+
+        public void DeleteStudent(int studentId)
+        {
+            var student = db.DBStudent.GetItem(studentId);
+            if (student != null)
+            {
+                db.DBStudent.DeleteItem(student);
+                var address = db.DBAdrress.Items.FirstOrDefault(a => a.StudentId == studentId);
+                if (address != null) db.DBAdrress.DeleteItem(address);
+                Console.WriteLine($"[Успішно] Студента з ID {studentId} видалено.");
+            }
+            else
+            {
+                Console.WriteLine("[Помилка] Студента не знайдено.");
+            }
+        }
+
         public void AddAddress(string addressText, int studentId)
         {
             Address addr = new Address(addressText, studentId);
@@ -73,7 +105,36 @@ namespace Pr1_1609
             foreach (var a in db.DBAdrress.Items) Console.WriteLine(a);
         }
 
-        // ===  3: Управління даними щодо груп (CRUD) ===
+        public void UpdateAddress(int studentId, string newAddressText)
+        {
+            var address = db.DBAdrress.Items.FirstOrDefault(a => a.StudentId == studentId);
+            if (address != null)
+            {
+                address.StudentAdrress = newAddressText;
+                Console.WriteLine($"[Успішно] Адресу для студента з ID {studentId} оновлено.");
+            }
+            else
+            {
+                Address newAddr = new Address(newAddressText, studentId);
+                db.DBAdrress.AddItem(newAddr);
+                Console.WriteLine($"[Успішно] Адресу для студента з ID {studentId} створено.");
+            }
+        }
+
+        public void DeleteAddress(int studentId)
+        {
+            var address = db.DBAdrress.Items.FirstOrDefault(a => a.StudentId == studentId);
+            if (address != null)
+            {
+                db.DBAdrress.DeleteItem(address);
+                Console.WriteLine($"[Успішно] Адресу для студента з ID {studentId} видалено.");
+            }
+            else
+            {
+                Console.WriteLine("[Помилка] Адресу для цього студента не знайдено.");
+            }
+        }
+
         public void AddGroup(string groupName)
         {
             Group g = new Group(groupName);
@@ -86,7 +147,6 @@ namespace Pr1_1609
             foreach (var g in db.DBGroup.Items) Console.WriteLine(g);
         }
 
-        // ===  4: Управління даними щодо предметів (CRUD) ===
         public void AddSubject(string subjectName, int hours)
         {
             Subject s = new Subject(subjectName, hours);
@@ -99,7 +159,20 @@ namespace Pr1_1609
             foreach (var s in db.DBSubject.Items) Console.WriteLine(s);
         }
 
-        // ===  5: Управління закріпленням груп за предметами ===
+        public void DeleteSubject(int id)
+        {
+            var subj = db.DBSubject.GetItem(id);
+            if (subj != null)
+            {
+                db.DBSubject.DeleteItem(subj);
+                Console.WriteLine($"[Успішно] Предмет ID {id} видалено.");
+            }
+            else
+            {
+                Console.WriteLine("[Помилка] Предмет не знайдено.");
+            }
+        }
+
         public void AddGroupSubject(int groupId, int subjectId)
         {
             GroupSubject gs = new GroupSubject(groupId, subjectId);
@@ -107,7 +180,6 @@ namespace Pr1_1609
             Console.WriteLine($"[Успішно] Закріплено предмет ID {subjectId} за групою ID {groupId}");
         }
 
-        // ===  7: Отримання всіх даних щодо студента за прізвищем ===
         public void GetStudentInfoByLastName(string lastName)
         {
             var student = db.DBStudent.Items.FirstOrDefault(s => s.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
@@ -120,11 +192,9 @@ namespace Pr1_1609
             Console.WriteLine($"\n--- Знайдено студента ---");
             Console.WriteLine(student);
 
-            // Виводимо адресу
             var address = db.DBAdrress.Items.FirstOrDefault(a => a.StudentId == student.Id);
             if (address != null) Console.WriteLine($"Адреса: {address.StudentAdrress}");
 
-            // Виводимо групу та предмети
             var group = db.DBGroup.Items.FirstOrDefault(g => g.Id == student.GroupId);
             if (group != null)
             {
@@ -138,7 +208,6 @@ namespace Pr1_1609
             }
         }
 
-        // ===  8: Отримання навантаження на студента (сума годин предметів його групи) ===
         public void GetStudentWorkload(int studentId)
         {
             var student = db.DBStudent.GetItem(studentId);
